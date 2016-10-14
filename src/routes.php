@@ -20,8 +20,13 @@ $app->get('/', function ($request, $response, $args) {
   // Sample log message
   $this->logger->info("List every post");
 
-  $this->db;
-  $args['posts'] = blogposts::all()->sortByDesc('created_at');
+  try {
+    $this->db;
+    $args['posts'] = blogposts::all()->sortByDesc('created_at');
+  }
+  catch (Exception $e) {
+    echo "Maybe you need to <a href='/install'>install</a> first!";
+  }
 
   // Render index view
   return $this->renderer->render($response, 'index.phtml', $args);
