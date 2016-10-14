@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete - <?= $title ?></title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="row">
+    <div class="col-sm-2 col-md-3 col-lg-3"></div>
+    <div class="col-sm-8 col-md-6 col-lg-6">
+    <ul class="nav nav-tabs">
+        <li><a href="/" class="button">Back</a></li>
+        <?php if (!empty($_SESSION['id'])): ?>
+            <li><a href="/blogpost/<?= $id ?>">View</a></li>
+            <li><a href="/blogpost/<?= $id ?>/edit">Edit</a></li>
+            <li class="active"><a href="/blogpost/<?= $id ?>/delete">Delete</a></li>
+        <?php endif; ?>
+    </ul>
+
+    <?php if (!empty($errors) || !empty($warning) || !empty($success) || !empty($info)): ?>
+        <div class="messages">
+            <?php foreach ($errors as $error): ?>
+                <div class="alert-danger"><?= $error ?></div>
+            <?php endforeach; ?>
+            <?php foreach ($warning as $warning_o): ?>
+                <div class="alert-warning"><?= $warning_o ?></div>
+            <?php endforeach; ?>
+            <?php foreach ($success as $success_o): ?>
+                <div class="alert-success"><?= $success_o ?></div>
+            <?php endforeach; ?>
+            <?php foreach ($info as $info_o): ?>
+                <div class="alert-success"><?= $info_o ?></div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
+    Are you sure you want to delete: <?= $title ?>?
+    <form action="/blogpost/<?= $id ?>/delete" method="post">
+        <input type="submit" name="delete" value="Delete">
+        <input type="hidden" name="token" value="<?= $token ?>">
+        <input type="submit" name="back" value="Back">
+    </form>
+    </div>
+    <div class="col-sm-2 col-md-3 col-lg-3"></div>
+</div>
+</body>
+</html>

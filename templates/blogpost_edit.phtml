@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blogpost edit</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+    <script src="/tinymce/tinymce.min.js"></script>
+    <script>
+        tinymce.init({ selector:'textarea#body' });
+        tinymce.init({ selector:'textarea#summary' });
+    </script>
+</head>
+<body>
+<div class="row">
+    <div class="col-sm-2 col-md-3 col-lg-3"></div>
+    <div class="col-sm-8 col-md-6 col-lg-6">
+    <?php if ($is_new == 0): ?>
+    <ul class="nav nav-tabs">
+        <li><a href="/" class="button">Back</a></li>
+        <?php if (!empty($_SESSION['id'])): ?>
+            <li><a href="/blogpost/<?= $id ?>">View</a></li>
+            <li class="active"><a href="/blogpost/<?= $id ?>/edit">Edit</a></li>
+            <li><a href="/blogpost/<?= $id ?>/delete">Delete</a></li>
+        <?php endif; ?>
+    </ul>
+    <?php endif; ?>
+
+    <?php if (!empty($errors) || !empty($warning) || !empty($success) || !empty($info)): ?>
+        <div class="messages">
+            <?php foreach ($errors as $error): ?>
+                <div class="alert-danger"><?= $error ?></div>
+            <?php endforeach; ?>
+            <?php foreach ($warning as $warning_o): ?>
+                <div class="alert-warning"><?= $warning_o ?></div>
+            <?php endforeach; ?>
+            <?php foreach ($success as $success_o): ?>
+                <div class="alert-success"><?= $success_o ?></div>
+            <?php endforeach; ?>
+            <?php foreach ($info as $info_o): ?>
+                <div class="alert-success"><?= $info_o ?></div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+
+    <form action="/blogpost/<?php echo $is_new ? 'add' : $id . '/edit' ?>" method="post">
+        <input type="hidden" name="is_new" value="<?= $is_new ?>">
+        <input type="hidden" name="token" value="<?= $token ?>">
+        <label>Blogpost title*: <input type="text" name="title" id="title" value="<?= $title ?>"></label><br>
+        <label>Blogpost summary/lead: <textarea name="summary" id="summary"><?= $summary ?></textarea></label><br>
+        <label>Blogpost body*: <textarea name="body" id="body"><?= $body ?></textarea></label><br>
+        <label>Blogpost author*: <input type="text" name="author" id="author" value="<?= $author ?>"></label><br>
+        <label>Blogpost created: <input type="text" name="created_at" id="created_at" value="<?= $created_at ?>"></label><br>
+        <label><input type="submit" name="save" value="Save"></label>
+        <label><input type="submit" name="back" value="Back"></label>
+    </form>
+    </div>
+    <div class="col-sm-2 col-md-3 col-lg-3"></div>
+</div>
+</body>
+</html>

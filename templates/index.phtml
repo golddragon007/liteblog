@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>Posts</title>
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="/css/style.css">
+    </head>
+    <body>
+    <div class="row">
+        <div class="col-sm-2 col-md-3 col-lg-3"></div>
+        <div class="col-sm-8 col-md-6 col-lg-6">
+    <?php if (!empty($_SESSION['id'])): ?>
+        <div class="links">
+            <ul class="nav nav-pills">
+                <li><a href="/blogpost/add">New post</a></li>
+                <li><a href="/user/add">New user</a></li>
+                <li><a href="/users">List users</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+    <?php endif; ?>
+    <?php if (!empty($errors) || !empty($warning) || !empty($success) || !empty($info)): ?>
+        <div class="messages">
+            <?php foreach ($errors as $error): ?>
+                <div class="alert-danger"><?= $error ?></div>
+            <?php endforeach; ?>
+            <?php foreach ($warning as $warning_o): ?>
+                <div class="alert-warning"><?= $warning_o ?></div>
+            <?php endforeach; ?>
+            <?php foreach ($success as $success_o): ?>
+                <div class="alert-success"><?= $success_o ?></div>
+            <?php endforeach; ?>
+            <?php foreach ($info as $info_o): ?>
+                <div class="alert-success"><?= $info_o ?></div>
+            <?php endforeach; ?>
+        </div>
+    <?php endif; ?>
+    <?php foreach ($posts as $post): ?>
+        <article>
+            <div class="post-info">
+                <h2><?= $post->getAttribute('title') ?></h2>
+                <div class="post-creation-data">
+                    <span class="author">
+                        Created by <?= $post->getAttribute('author') ?>
+                    </span>
+                    <span class="date-create">
+                        at
+                        <?= $post->getAttribute('created_at') ?>
+                    </span>
+                </div>
+            </div>
+            <div class="summary">
+                <div class="text-container">
+                    <?= $post->getAttribute('summary') ?>
+                </div>
+
+                <?php if (!empty($post->getAttribute('updated_at'))): ?>
+                    <span class="date-update">
+                            Updated:
+                        <?= $post->getAttribute('updated_at') ?>
+                        </span>
+                <?php endif; ?>
+            </div>
+            <div class="nav-buttons">
+                <ul class="nav nav-pills">
+                    <li><a href="/blogpost/<?= $post->getAttribute('id') ?>">Read more...</a></li>
+                </ul>
+            </div>
+        </article>
+    <?php endforeach; ?>
+        </div>
+        <div class="col-sm-2 col-md-3 col-lg-3"></div>
+    </div>
+    </body>
+</html>

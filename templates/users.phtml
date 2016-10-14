@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Users</title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="row">
+    <div class="col-sm-2 col-md-3 col-lg-3"></div>
+    <div class="col-sm-8 col-md-6 col-lg-6">
+        <?php if (!empty($_SESSION['id'])): ?>
+            <div class="links">
+                <ul class="nav nav-pills">
+                    <li><a href="/">Posts</a></li>
+                    <li><a href="/user/add">New User</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                </ul>
+            </div>
+        <?php endif; ?>
+        <?php if (!empty($errors) || !empty($warning) || !empty($success) || !empty($info)): ?>
+            <div class="messages">
+                <?php foreach ($errors as $error): ?>
+                    <div class="alert-danger"><?= $error ?></div>
+                <?php endforeach; ?>
+                <?php foreach ($warning as $warning_o): ?>
+                    <div class="alert-warning"><?= $warning_o ?></div>
+                <?php endforeach; ?>
+                <?php foreach ($success as $success_o): ?>
+                    <div class="alert-success"><?= $success_o ?></div>
+                <?php endforeach; ?>
+                <?php foreach ($info as $info_o): ?>
+                    <div class="alert-success"><?= $info_o ?></div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+        <?php foreach ($users as $user): ?>
+            <div class="user">
+                <span class="username"><?= $user->getAttribute('username') ?></span>
+                <ul class="nav nav-pills">
+                    <li><a class="delete" href="/user/<?= $user->getAttribute('id') ?>/edit">Edit</a></li>
+                    <?php if ($user->getAttribute('id') != 1): ?>
+                      <li><a class="delete" href="/user/<?= $user->getAttribute('id') ?>/delete">Delete</a></li>
+                    <?php endif; ?>
+                </ul>
+                <span class="clearfix"></span>
+            </div>
+        <?php endforeach; ?>
+    </div>
+    <div class="col-sm-2 col-md-3 col-lg-3"></div>
+</div>
+</body>
+</html>

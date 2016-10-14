@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete - <?= $username ?></title>
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
+<body>
+<div class="row">
+    <div class="col-sm-2 col-md-3 col-lg-3"></div>
+    <div class="col-sm-8 col-md-6 col-lg-6">
+        <?php if (!empty($_SESSION['id'])): ?>
+        <div class="links">
+            <ul class="nav nav-pills">
+                <li><a href="/">Posts</a></li>
+                <li><a href="/users">Users</a></li>
+                <li><a href="/user/add">New User</a></li>
+                <li><a href="/logout">Logout</a></li>
+            </ul>
+        </div>
+        <?php endif; ?>
+
+        <?php if (!empty($errors) || !empty($warning) || !empty($success) || !empty($info)): ?>
+            <div class="messages">
+                <?php foreach ($errors as $error): ?>
+                    <div class="alert-danger"><?= $error ?></div>
+                <?php endforeach; ?>
+                <?php foreach ($warning as $warning_o): ?>
+                    <div class="alert-warning"><?= $warning_o ?></div>
+                <?php endforeach; ?>
+                <?php foreach ($success as $success_o): ?>
+                    <div class="alert-success"><?= $success_o ?></div>
+                <?php endforeach; ?>
+                <?php foreach ($info as $info_o): ?>
+                    <div class="alert-success"><?= $info_o ?></div>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+
+        Are you sure you want to delete: <?= $username ?>?
+        <form action="/user/<?= $id ?>/delete" method="post">
+            <input type="submit" name="delete" value="Delete">
+            <input type="hidden" name="token" value="<?= $token ?>">
+            <input type="submit" name="back" value="Back">
+        </form>
+    </div>
+    <div class="col-sm-2 col-md-3 col-lg-3"></div>
+</div>
+</body>
+</html>
