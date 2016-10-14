@@ -20,18 +20,26 @@
             </ul>
             <?php if (!empty($errors) || !empty($warning) || !empty($success) || !empty($info)): ?>
                 <div class="messages">
-                    <?php foreach ($errors as $error): ?>
-                        <div class="alert-danger"><?= $error ?></div>
-                    <?php endforeach; ?>
-                    <?php foreach ($warning as $warning_o): ?>
-                        <div class="alert-warning"><?= $warning_o ?></div>
-                    <?php endforeach; ?>
-                    <?php foreach ($success as $success_o): ?>
-                        <div class="alert-success"><?= $success_o ?></div>
-                    <?php endforeach; ?>
-                    <?php foreach ($info as $info_o): ?>
-                        <div class="alert-success"><?= $info_o ?></div>
-                    <?php endforeach; ?>
+                    <?php if (!empty($errors)): ?>
+                        <?php foreach ($errors as $error): ?>
+                            <div class="alert alert-danger"><?= $error ?></div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    <?php if (!empty($warning)): ?>
+                        <?php foreach ($warning as $warning_o): ?>
+                            <div class="alert alert-warning"><?= $warning_o ?></div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    <?php if (!empty($success)): ?>
+                        <?php foreach ($success as $success_o): ?>
+                            <div class="alert alert-success"><?= $success_o ?></div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                    <?php if (!empty($info)): ?>
+                        <?php foreach ($info as $info_o): ?>
+                            <div class="alert alert-success"><?= $info_o ?></div>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
             <?php endif; ?>
             <article class="article">
